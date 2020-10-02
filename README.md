@@ -7,7 +7,7 @@ The following is an analysis of the benefits of refactoring a VBA script created
 
 ### Script Comparison
 
-The primary objective in refactoring the VBA script was to allow it to better handle much larger datasets than the one included in this analysis (3013 rows). To do this, attention was given to removing processes that slow a script when processing large datasets, which in this case was namely nested for loops. 
+The primary objective in refactoring the VBA script was to allow it to better handle much larger datasets than the one included in this analysis (3013 rows). To do this, attention was given to removing processes that slow a script when processing large datasets, which in this case was a nested for loop (shown below): 
 
 #### Original Script (before refactoring:
 
@@ -52,8 +52,8 @@ The primary objective in refactoring the VBA script was to allow it to better ha
             
         Next i
 
+The first for loop was initialized to loop through an array of stock ticker names, and then a nested for loop was used to calculate a total volume and yearly return for the given ticker using a series of conditional statements. This information was then outputted before the loop begins again for the next ticker. In contrast, the refactored script does not use a nested for loop and instead uses a variable (tickerIndex), to access the correct index across a series of arrays creataed to collect the generated output. The result is three separate for loops and can be seen below: 
 
- 
 #### Refactored Script:  
 
     'Create a ticker Index
