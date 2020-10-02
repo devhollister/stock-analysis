@@ -7,7 +7,115 @@ The following is an analysis of the benefits of refactoring a VBA script created
 
 ### Script Comparison
 
-The primary objective in refactoring the VBA script was to allow it to better handle much larger datasets than the one included in this analysis. To do this, attention was given to removing processes that slow a script when processing large datasets, which in this case was namely nested for loops. 
+The primary objective in refactoring the VBA script was to allow it to better handle much larger datasets than the one included in this analysis (3013 rows). To do this, attention was given to removing processes that slow a script when processing large datasets, which in this case was namely nested for loops. 
+
+#### Original Script (before refactoring:
+
+    'Loop through tickers
+    For i = 0 To 11
+        
+        ticker = tickers(i)
+        totalVolume = 0
+        
+            ‘Loop through rows in the data
+            Worksheets(yearValue).Activate
+            For j = 2 To RowCount
+            
+                'Get total volume for current ticker
+                If Cells(j, 1).Value = ticker Then
+
+                totalVolume = totalVolume + Cells(j, 8).Value
+
+                End If
+                
+                ‘Get starting price for current ticker
+                If Cells(j - 1, 1).Value <> ticker And Cells(j, 1).Value = ticker Then
+
+                startingPrice = Cells(j, 6).Value
+
+                End If
+                
+                ‘Get ending price for current ticker
+                If Cells(j + 1, 1).Value <> ticker And Cells(j, 1).Value = ticker Then
+
+                endingPrice = Cells(j, 6).Value
+                
+                End If
+                 
+            Next j
+            
+            'Output data for current ticker
+            Worksheets("All Stocks Analysis").Activate
+            Cells(4 + i, 1).Value = ticker
+            Cells(4 + i, 2).Value = totalVolume
+            Cells(4 + i, 3).Value = endingPrice / startingPrice - 1
+            
+        Next i
+
+
+ 
+#### Refactored Script:  
+
+    'Create a ticker Index
+    tickerIndex = 0
+
+    'Create three output arrays
+    Dim tickerVolumes(12) As Long
+    Dim tickerStartingPrices(12) As Single
+    Dim tickerEndingPrices(12) As Single
+    
+    'Create a for loop to initialize the tickerVolumes to zero.
+    
+    For i = 0 To 11
+    
+        
+        tickerVolumes(i) = 0
+        
+    Next i
+    
+            
+           'Loop over all the rows in the spreadsheet.
+    
+    For i = 2 To RowCount
+        
+        'Increase volume for current ticker
+        
+       
+        tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+
+       
+        'Check if the current row is the first row with the selected tickerIndex.
+        
+        If Cells(i - 1, 1).Value <> tickers(tickerIndex) Then
+
+            tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+
+        End If
+        
+        ‘Check if the current row is the last row with the selected ticker
+        
+        If Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
+
+            tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+        
+            '3d Increase the tickerIndex.
+            tickerIndex = tickerIndex + 1
+            
+        End If
+    
+    Next i
+    
+    'Loop through your arrays to output the Ticker, Total Daily Volume, and Return.
+    For i = 0 To 11
+        
+        Worksheets("All Stocks Analysis").Activate
+        Cells(4 + i, 1).Value = tickers(i)
+        Cells(4 + i, 2).Value = tickerVolumes(i)
+        Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
+        
+        
+    Next i
+
 
 ### Stock Perfomance
 
@@ -19,6 +127,6 @@ As shown above, all stocks except for TERP gained value over the course of 2017.
 
 ## Summary
 
-In general, refactoring makes a script more efficient, more adaptable and easily edited, and more readable and understandable. Refactoring however can be time consuming, and as a script grows in complexity, the time and potential roadblocks involved in refactoring may exceed its benefits and even the project budget. For this VBA script in particular, refactoring enabled to run THIS MUCH MORE QUICKLY by eliminating nested for loops, enabling the code to be read more clearly from top to bottom without forcing the reader to cycle through a complex loop structure.
+In general, refactoring makes a script more efficient, more adaptable and easily edited, and more readable and understandable. Refactoring however can be time consuming, and as a script grows in complexity, the time and potential roadblocks involved in refactoring may exceed its benefits and even the project budget. For this VBA script in particular, refactoring enabled to the script to run THIS MUCH MORE QUICKLY by eliminating nested for loops, and enabled the code to be read more clearly from top to bottom without forcing the reader to cycle through a complex loop structure.
 
 As for the stocks performance aspect of this analysis, it appears that stock prices in the green energy field are falling in general, and though further analysis on larger and more up to date data sets should be made to confirm this, it may not be wise to invest in green energy stocks at the moment. DQ in particular should be avoided due to its especially negative performance in 2018. 
