@@ -120,7 +120,6 @@ As can be seen, the second loop contains the same calculations originally found 
 #### Original Script Run Times
 
 ![original run time 2017](Resources/VBA_before_refactoring_2017.png) ![original run time 2018](Resources/VBA_before_refactoring_2018.png)
-
 #### Refactored Script Run Times
 
 ![refactored run time 2017](Resources/VBA_Challenge_2017.png) ![refactored run time 2018](Resources/VBA_Challenge_2018.png)
