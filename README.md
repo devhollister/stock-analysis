@@ -52,7 +52,7 @@ The primary objective in refactoring the VBA script was to allow it to better ha
             
         Next i
 
-The first for loop was initialized to loop through an array of stock ticker names, and then a nested for loop was used to calculate a total volume and yearly return for the given ticker using a series of conditional statements. This information was then outputted before the loop begins again for the next ticker. In contrast, the refactored script does not use a nested for loop and instead uses a variable (tickerIndex), to access the correct index across a series of arrays creataed to collect the generated output. The result is three separate for loops and can be seen below: 
+The first for loop is initialized to loop through an array of stock ticker names, and then a nested for loop is used to calculate a total volume and yearly return for the given ticker using a series of conditional statements. This information is then outputted before the loop begins again for the next ticker. In contrast, the refactored script does not use a nested for loop and instead uses a variable (tickerIndex), to access the correct index across a series of arrays created to collect the generated output. The result is three separate for loops and can be seen below: 
 
 #### Refactored Script:  
 
@@ -113,8 +113,12 @@ The first for loop was initialized to loop through an array of stock ticker name
         Cells(4 + i, 2).Value = tickerVolumes(i)
         Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
         
-        
     Next i
+
+As can be seen, the second loop contains the same calculations originally found in the nested for loop, except that in the refactored version the tickerIndex increases every time it is determined that ticker value changes between the current row and the next. The run times calculated within the code are as follows: 
+
+#### Original and Refactored Script Run Times
+
 
 
 ### Stock Perfomance
