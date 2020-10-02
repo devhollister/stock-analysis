@@ -115,7 +115,7 @@ The first for loop is initialized to loop through an array of stock ticker names
         
     Next i
 
-As can be seen, the second loop contains the same calculations originally found in the nested for loop, except that in the refactored version the tickerIndex increases every time it is determined that ticker value changes between the current row and the next. The run times calculated within the code are as follows: 
+As can be seen, the second loop contains the same calculations originally found in the nested for loop, except that in the refactored version the tickerIndex increases every time it is determined that ticker value changes between the current row and the next. To determine whether the refactoring was effective, the run time of both scripts was calculated within the script using VBA's timer operator for both the 2017 and the 2018 data. The differene is clear: by elimating the nested for loop found in the original script, the refactored script ran about 1.2 seconds faster for the 2017 data and about 1.5 seconds for the 2018 data. The exact run times were as follows: 
 
 #### Original Script Run Times
 
