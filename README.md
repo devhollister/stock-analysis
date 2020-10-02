@@ -117,9 +117,13 @@ The first for loop is initialized to loop through an array of stock ticker names
 
 As can be seen, the second loop contains the same calculations originally found in the nested for loop, except that in the refactored version the tickerIndex increases every time it is determined that ticker value changes between the current row and the next. The run times calculated within the code are as follows: 
 
-#### Original and Refactored Script Run Times
+#### Original Script Run Times
 
+![original run time 2017](Resources/VBA_before_refactoring_2017.png) ![original run time 2018](Resources/VBA_before_refactoring_2018.png)
 
+#### Refactored Script Run Times
+
+![refactored run time 2017](Resources/VBA_Challenge_2017.png) ![refactored run time 2018](Resources/VBA_Challenge_2018.png)
 
 ### Stock Perfomance
 
