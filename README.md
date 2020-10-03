@@ -1,6 +1,7 @@
-# An Analysis of Selected Stocks and the Benefits of Refactoring Scripts
+# An Analysis of Green Energy Stocks and the Benefits of Refactoring Scripts
 
 ## Overview of Project
+
 The following is an analysis of the benefits of refactoring a VBA script created to analyze the performance of 12 selected green energy stocks for the years 2017 and 2018. The script was initially written to provide insights to the client, Steve, who has been tasked with investing in stocks for his parents, who are passionate about green energy and are particularly interested in the performance of a company called DAQO New Energy Corp (ticker “DQ”). The script was then refactored to allow the client to easily and efficiently scale his stock analysis to include the performance of any or all stocks on the market for any given year. To determine whether the refactoring improved the original script, run times were calculated for compared for both. 
 
 ## Results
